@@ -47,8 +47,12 @@ def set():
             #print("ext:", ext,di[ext])
             currtym=datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             #print("time:",currtym, type(currtym))
-            if ext in di.keys():ft = di[ext]
-            else: ft="Unknown file format"
+            
+            try:
+                ft = di[ext]
+            except:
+                return "File format is not accepted. Please go back and choose from docx, xlsx, pdf, JPG, PNG, txt and ipynb formats"
+            
             record = File_Storage(key=file_name, value=file.read(),ftype=ft,uptime=currtym)
             #record = File_Storage(key=request.form.get("key"),value=request.files['value'].read())
             db.session.add(record)
